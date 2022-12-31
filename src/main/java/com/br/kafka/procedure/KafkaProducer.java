@@ -13,11 +13,11 @@ import org.springframework.stereotype.Component;
 public class KafkaProducer {
 
     @Value("${topic.name.producer.person}")
-    private String topicSendNetwin;
+    private String topicSendPerson;
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
     public void sendPersonToTopic(Person person) {
-        kafkaTemplate.send(topicSendNetwin, person).addCallback(
+        kafkaTemplate.send(topicSendPerson, person).addCallback(
                 success -> log.info("KafkaProducer Payload send successfuly. {}", success.getProducerRecord().value()),
                 failure -> log.error("KafkaProducer Error call:{}", failure.getMessage())
         );

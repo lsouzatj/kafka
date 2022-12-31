@@ -13,7 +13,7 @@ public class KafkaConsumer {
     @Value("${topic.name.producer.person}")
     private String topicSendPerson;
 
-    @KafkaListener(topics = "${topic.name.producer.person}", groupId = "${group.name.person}")
+    @KafkaListener(topics = "${topic.name.producer.person}", groupId = "${group.name.person}", containerFactory = "personListener")
     public void consumerPersonOfTopic(Person person) {
         log.info("Tópico: {}", topicSendPerson);
         log.info("KafkaConsumer Payload received successfuly. Notificação enviada ao cliente com os dados: {}", person);
