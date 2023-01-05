@@ -54,10 +54,11 @@ O Apache Kafka centraliza o recebimento e a entrega das mensagens ao consumidor 
 ##  Pré -requisitos
 
 - [ `Java 19+` ](https://www.oracle.com/java/technologies/downloads/#java19)
+- [ `Maven 3+` ](https://maven.apache.org/download.cgi)
+- [ `Docker-Compose` ](https://docs.docker.com/compose/install/)
 - [ `Docker` ](https://www.docker.com/)
   - Imagem Apache Kafka
   - Imagem Apache ZooKeeper 
-
 
 ## Tecnologias
 - Java 19
@@ -67,16 +68,56 @@ O Apache Kafka centraliza o recebimento e a entrega das mensagens ao consumidor 
 - Lombok
 - Tomcat (Embedded no Spring Boot)
 - Git
+- Apache Maven
 
 ## Portas
-| Aplicação                       | Porta |
-|---------------------------------|-------|
-| poc-kafka                       | 8020  |
-| kafka                           | 9092  |
+| Aplicação | Porta |
+|-----------|-------|
+| poc-kafka | 8020  |
+| kafka     | 9092  |
+| zookeeper | 2181  |
 
 ## Links
 
 - Aplicação
   - http://localhost:8020
-- Kafka 
-  - http://localhost:9092
+
+## Setup
+
+### Executando a aplicação com maven
+- Na raiz do projeto execute o seguinte comando:
+  ```
+  ./mvnw clean package -DskipTests
+  ```
+  
+### Gerando imagem docker
+- Na raiz do projeto execute o seguinte comando para criar a imagem docker da aplicação:
+```bash
+docker build --tag poc-kafka .
+```  
+
+### Executar docker-compose para subir aplicação com container docker
+- Dentro da pasta docker-compose, execute o seguinte comando para subir os containers:
+  ```
+  docker-compose up -d
+  ```
+- Execute o seguinte comando para verificar os status do containers docker:
+  ```
+  docker-compose ps
+  ```
+## Payload
+Method: GET
+  - URL: http://localhost:8020/person/send
+  ```
+{
+    "name": "Teste-01",
+    "idade": 1,
+    "cpf": "001.002.003-04"
+}
+  ```
+
+## Desenvolvedores
+
+**Leandro D'Souza**
+- LinkedIn - www.linkedin.com/in/francis-leandro-de-souza
+- GitHub - https://github.com/lsouzatj
